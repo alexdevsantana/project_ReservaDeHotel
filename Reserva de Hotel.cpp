@@ -45,7 +45,7 @@ void head() {
 	
 }
 
-int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
+int menu(Cliente *cliente) { 
 	
 	int escolha;
 	
@@ -54,32 +54,32 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 	do{
 		system("cls");
 		
-		printf("\n\n--- MENU --\n"); //exibe menu
+		printf("\n\n--- MENU --\n"); 
 		printf("1 - Cadastrar Cliente\n");
 		printf("2 - Buscar Cliente\n");
 		printf("3 - Sair do Sistema\n");
 		printf("Escolha uma opção: ");
-		scanf("%d", &escolha); // obtem o numero informado pelo usuario e armazena na variável escolha
+		scanf("%d", &escolha); 
 		
 		system("cls");
-//		system("pause");
+
 			
 		system("cls");
 
 	
 		switch(escolha) {
 			case 1:
-				printf("--- CADASTRAR Cliente --\n"); //exibe CADASTRAR PRODUTO
+				printf("--- CADASTRAR Cliente --\n"); 
 				
 				cadastra(cliente);
 				system("pause");
 				
 				break;
 			case 2:
-				printf("--- Lista de Cliente --\n"); //exibe BUSCAR PRODUTO
+				printf("--- Lista de Cliente --\n"); 
 				system("pause");
 				
-				//	void lista(cliente);
+				
 				
 				break;
 			case 3:
@@ -87,7 +87,7 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 				system("pause");
 				
 				break;
-			default: // opção padrão para se os case anteriores forem falsos
+			default:
 				printf("Opção inválida.\n");
 		}
 
@@ -98,7 +98,7 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 }
 
 void cadastra(Cliente *cliente) {
-	char op;
+	
 	
 	fflush(stdin);
 	printf("Informe o nome do cliente: ");
