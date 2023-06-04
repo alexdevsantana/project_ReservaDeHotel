@@ -7,7 +7,7 @@
 struct Cliente {
 	char nome[50];
 	char CPF[14];
-	int dias;
+	int telefone[11];
 	
 	
 };
@@ -77,6 +77,9 @@ int menu(Cliente *cliente) {
 				break;
 			case 2:
 				printf("--- Lista de Cliente --\n"); 
+				
+				
+				lista(cliente);
 				system("pause");
 				
 				
@@ -109,10 +112,8 @@ void cadastra(Cliente *cliente) {
 	scanf("%s", &cliente[contador].CPF);
 
 	fflush(stdin);
-	printf("Dias que vai ficar no hotel: ");
-	scanf("%d", &cliente[contador].dias);
-	
-	printf("QUARTO DE HOTEL: ");
+	printf("Número de telefone: ");
+	scanf("%d", &cliente[contador].telefone);
 	
 	contador++;
 	
@@ -120,16 +121,30 @@ void cadastra(Cliente *cliente) {
 }
 
 void lista(Cliente *cliente){
-	
+	char opcao;
 	int codCliente;
 	
 	for(int i = 0; i < contador; i++){
-		printf("%d - %s", i, cliente[i].nome);
+		printf("%d - %s\n", i, cliente[i].nome);
 	}
 	
-	printf("Informe o código do cliente: ");
-	scanf("%d", &codCliente);
+	fflush(stdin);
+	printf("Deseja obter mais detalhes? (s/n): ");
+	scanf("%c", &opcao);
+	
+	system("cls");
+	
+	if(toupper(opcao) == 'S') {
+		for(int i = 0; i < contador; i++){
+		printf("%d - %s\n", i, cliente[i].nome);
+		}
+		
+		printf("\nInforme o código do cliente: ");
+		scanf("%d", &codCliente);
+		
+		printf("%s\n",cliente[codCliente].nome);
+		printf("\nCPF: %s", cliente[codCliente].CPF);
+		printf("\nDias: %d\n", cliente[codCliente].telefone);
+				
+	}
 }
-
-
-
