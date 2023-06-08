@@ -1,0 +1,113 @@
+void reservar(Cliente *cliente){
+ 	int id2;
+ 	int idCliente;
+ 	int comfirmar;
+ 	
+ 	for(int i = 0; i < contador; i++){
+ 		
+		printf("%d - %s\n",cliente[i].id, cliente[i].nome);
+	}
+	
+	printf("informe seu id: ");
+	scanf("%d", &idCliente);
+	
+	for(int i = 0; i < contador; i++)
+	{
+		
+		if(idCliente == cliente[i].id)
+		{	
+			strcpy(reservas[contResevas].nome, cliente[i].nome);
+			cliente[i].cadastrado = false;	
+		}
+	}
+ 	
+ 	
+ 	printf("Qual quarto voce deseja reserva\n\n");
+ 	
+ 	for(int i = 0; i < contQuartos; i++){
+ 		if(quartos[i].disponiveis == true){
+			printf("Id:%d \n", quartos[i].id);
+			printf("Classe:%s \n", quartos[i].classe);
+			printf("valor do quarto:%d \n\n", quartos[i].valor);
+		}
+	}
+		
+	printf("\nDigite o id do quarto que você deseja reserva: ");	
+	scanf("%d", &id2);
+	
+	fflush(stdin);
+	printf("digite a quatidade de dias que vc deseja ficar: ");
+	scanf("%d", &reservas[contResevas].dias);
+	
+	reservas[contResevas].valorF = reservas[contResevas].dias * quartos[id2 - 1].valor;
+	
+	printf("O valor a ser pago é:%d\n", reservas[contResevas].valorF);
+	
+	printf("Digite 1 para confirmar cadastro: ");
+	scanf("%d", &comfirmar);
+	
+	if(comfirmar != 1){
+		printf("reserva não comfirmada!!!\n");	
+	}
+	
+	for(int i = 0; i < contQuartos; i++)
+	{
+		
+		if(id2 == quartos[i].id and comfirmar == 1)
+		{	
+			
+			idCliente = reservas[contResevas].idReserva;
+			strcpy(quartos[i].status, "Reservado");	
+			strcpy(reservas[contResevas].classe, "Reservado");		
+			quartos[i].disponiveis = false;
+			cliente[i].cadastrado = false;
+			printf("\nQuarto cadastrado!!!\n");
+			contResevas++;
+		}
+	}
+ }  
+ void cadastrarQuartos() {
+   int teste;
+   bool verifica = false; 
+    
+    
+    
+  	while(verifica == false){
+  		
+  		printf("<<<<<<<<<<<<<<<< >Informaçoes do quarto< >>>>>>>>>>>>>>>\n\n");
+  		printf(">> Quarto basico: Cama de solteiro, ventilador\n");
+  		printf(">> Valor- 70 reais\n");
+  		printf("\n>> Quarto de luxo: Cama de casal, ar-condicionado, banheira\n");
+  		printf(">> Valor- 200 reais\n");
+	 	printf("\n<<<<<<<<<<<<<<<<<********>>>>>>>>>>>>>>>>>>\n\n");
+	 	printf(" 1 - Luxo\n ");
+	 	printf("2 - Básico \n");
+	 	printf("\nDigite a classe do quarto que deseja cadastrar: ");
+	 	
+	   	scanf("%d", &teste);
+	   	
+	   	if(teste == 1){
+	   		strcpy(quartos[contQuartos].classe, "luxo");
+	   		strcpy(quartos[contQuartos].status, "disponivel");
+	   		quartos[contQuartos].id = contQuartos +1;
+	   		quartos[contQuartos].disponiveis = true;
+	   		quartos[contQuartos].valor = 200;
+	   		contQuartos++;
+	   		verifica = true;
+	   		printf("\n\nQuarto cadastrado com sucesso!!!!\n");
+		}else if(teste == 2){
+			strcpy(quartos[contQuartos].classe, "basico");
+			strcpy(quartos[contQuartos].status, "disponivel");
+			quartos[contQuartos].id = contQuartos +1;
+			quartos[contQuartos].disponiveis = true;
+			quartos[contQuartos].valor = 70;
+			contQuartos++;
+			verifica = true;
+			printf("\n\nQuarto cadastrado com sucesso!!!!\n");
+		}else{
+		 	printf("Opção invalida!!!\n\n");
+		}
+  	}
+   	
+   	
+}
