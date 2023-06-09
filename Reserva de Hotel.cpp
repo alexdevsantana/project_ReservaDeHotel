@@ -5,17 +5,42 @@
 
 
 struct Cliente {
+	int id;
 	char nome[50];
-	char CPF[14];
-	int telefone[11];
-	
-	
-};
+	int CPF;
+	int telefone;
+	bool cadastrado;
+}cliente[100];
 
+
+
+struct Quarto{
+	
+    int id;
+    bool disponiveis;
+    char classe[9];
+    int valor;
+    char status[10]; 
+    int valorF;
+	    
+ }quartos[10];
+
+struct reservar{
+	
+	int idReserva;
+	char classe[10];
+	char nome[10];
+	int dias;
+	int valorF;
+	
+}reservas[100];
+
+int contResevas = 0;
+int contQuartos = 0;
 int contador = 0;
 
-void head(), cadastra(Cliente *cliente), lista(Cliente *cliente); 
-int menu(Cliente *cliente);
+void head(), cadastraCliente(), listaCliente(); 
+int menu();
 
 
 
@@ -23,15 +48,14 @@ int menu(Cliente *cliente);
 int main() {
 	
 	setlocale(LC_ALL, "Portuguese");
-	
-	int escolha;
-	
-	Cliente *cliente = (Cliente *) malloc(3*sizeof(Cliente));
+
+		
+	int escolha;	
 	
 	do {
 		head();
 		
-		escolha = menu(cliente);
+		escolha = menu();
 		
 		system("cls");
 	} while(escolha);
@@ -45,7 +69,7 @@ void head() {
 	
 }
 
-int menu(Cliente *cliente) { 
+int menu() { 
 	
 	int escolha;
 	
@@ -71,7 +95,7 @@ int menu(Cliente *cliente) {
 			case 1:
 				printf("--- CADASTRAR Cliente --\n"); 
 				
-				cadastra(cliente);
+				cadastraCliente();
 				system("pause");
 				
 				break;
@@ -79,7 +103,7 @@ int menu(Cliente *cliente) {
 				printf("--- Lista de Cliente --\n"); 
 				
 				
-				lista(cliente);
+				listaCliente();
 				system("pause");
 				
 				
@@ -100,7 +124,7 @@ int menu(Cliente *cliente) {
 
 }
 
-void cadastra(Cliente *cliente) {
+void cadastraCliente() {
 	
 	
 	fflush(stdin);
@@ -108,24 +132,26 @@ void cadastra(Cliente *cliente) {
 	gets(cliente[contador].nome);
 	
 	fflush(stdin);
-	printf("CPF: ");
-	scanf("%s", &cliente[contador].CPF);
+	printf("\nCPF: ");
+	scanf("%d", &cliente[contador].CPF);
 
 	fflush(stdin);
-	printf("Número de telefone: ");
+	printf("\nNúmero de telefone: ");
 	scanf("%d", &cliente[contador].telefone);
+	
+	cliente[contador].id = contador;
 	
 	contador++;
 	
-	printf("\nCadastro realizado com sucesso!\n");	
+	printf("\nCadastro realizado com sucesso!!!\n\n");	
 }
 
-void lista(Cliente *cliente){
+void listaCliente(){
 	char opcao;
 	int codCliente;
 	
 	for(int i = 0; i < contador; i++){
-		printf("%d - %s\n", i, cliente[i].nome);
+		printf("%d - %s\n", cliente[i].id, cliente[i].nome);
 	}
 	
 	fflush(stdin);
@@ -136,15 +162,21 @@ void lista(Cliente *cliente){
 	
 	if(toupper(opcao) == 'S') {
 		for(int i = 0; i < contador; i++){
-		printf("%d - %s\n", i, cliente[i].nome);
+		printf("%d - %s\n", cliente[i].id, cliente[i].nome);
 		}
 		
 		printf("\nInforme o código do cliente: ");
 		scanf("%d", &codCliente);
 		
+		system("cls");
+		
 		printf("%s\n",cliente[codCliente].nome);
-		printf("\nCPF: %s", cliente[codCliente].CPF);
-		printf("\nDias: %d\n", cliente[codCliente].telefone);
+		printf("CPF: %d", cliente[codCliente].CPF);
+		printf("\nTelefone: %d\n", cliente[codCliente].telefone);
+		
 				
 	}
 }
+
+
+
