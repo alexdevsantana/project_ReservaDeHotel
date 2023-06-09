@@ -5,17 +5,42 @@
 
 
 struct Cliente {
+	int id;
 	char nome[50];
-	char CPF[14];
-	int dias;
-	
-	
-};
+	int CPF;
+	int telefone;
+	bool cadastrado;
+}cliente[100];
 
+
+
+struct Quarto{
+	
+    int id;
+    bool disponiveis;
+    char classe[9];
+    int valor;
+    char status[10]; 
+    int valorF;
+	    
+ }quartos[10];
+
+struct reservar{
+	
+	int idReserva;
+	char classe[10];
+	char nome[10];
+	int dias;
+	int valorF;
+	
+}reservas[100];
+
+int contResevas = 0;
+int contQuartos = 0;
 int contador = 0;
 
-void head(), cadastra(Cliente *cliente), lista(Cliente *cliente); 
-int menu(Cliente *cliente);
+void head(), cadastraCliente(), listaCliente(); 
+int menu();
 
 
 
@@ -23,15 +48,14 @@ int menu(Cliente *cliente);
 int main() {
 	
 	setlocale(LC_ALL, "Portuguese");
-	
-	int escolha;
-	
-	Cliente *cliente = (Cliente *) malloc(3*sizeof(Cliente));
+
+		
+	int escolha;	
 	
 	do {
 		head();
 		
-		escolha = menu(cliente);
+		escolha = menu();
 		
 		system("cls");
 	} while(escolha);
@@ -45,7 +69,7 @@ void head() {
 	
 }
 
-int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
+int menu() { 
 	
 	int escolha;
 	
@@ -54,32 +78,35 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 	do{
 		system("cls");
 		
-		printf("\n\n--- MENU --\n"); //exibe menu
+		printf("\n\n--- MENU --\n"); 
 		printf("1 - Cadastrar Cliente\n");
 		printf("2 - Buscar Cliente\n");
 		printf("3 - Sair do Sistema\n");
 		printf("Escolha uma opção: ");
-		scanf("%d", &escolha); // obtem o numero informado pelo usuario e armazena na variável escolha
+		scanf("%d", &escolha); 
 		
 		system("cls");
-//		system("pause");
+
 			
 		system("cls");
 
 	
 		switch(escolha) {
 			case 1:
-				printf("--- CADASTRAR Cliente --\n"); //exibe CADASTRAR PRODUTO
+				printf("--- CADASTRAR Cliente --\n"); 
 				
-				cadastra(cliente);
+				cadastraCliente();
 				system("pause");
 				
 				break;
 			case 2:
-				printf("--- Lista de Cliente --\n"); //exibe BUSCAR PRODUTO
+				printf("--- Lista de Cliente --\n"); 
+				
+				
+				listaCliente();
 				system("pause");
 				
-				//	void lista(cliente);
+				
 				
 				break;
 			case 3:
@@ -87,7 +114,7 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 				system("pause");
 				
 				break;
-			default: // opção padrão para se os case anteriores forem falsos
+			default:
 				printf("Opção inválida.\n");
 		}
 
@@ -97,38 +124,58 @@ int menu(Cliente *cliente) { // tipo void pois a função não precisa de retorno
 
 }
 
-void cadastra(Cliente *cliente) {
-	char op;
+void cadastraCliente() {
+	
 	
 	fflush(stdin);
 	printf("Informe o nome do cliente: ");
 	gets(cliente[contador].nome);
 	
 	fflush(stdin);
-	printf("CPF: ");
-	scanf("%s", &cliente[contador].CPF);
+	printf("\nCPF: ");
+	scanf("%d", &cliente[contador].CPF);
 
 	fflush(stdin);
-	printf("Dias que vai ficar no hotel: ");
-	scanf("%d", &cliente[contador].dias);
+	printf("\nNúmero de telefone: ");
+	scanf("%d", &cliente[contador].telefone);
 	
-	printf("QUARTO DE HOTEL: ");
+	cliente[contador].id = contador;
 	
 	contador++;
 	
-	printf("\nCadastro realizado com sucesso!\n");	
+	printf("\nCadastro realizado com sucesso!!!\n\n");	
 }
 
-void lista(Cliente *cliente){
-	
+void listaCliente(){
+	char opcao;
 	int codCliente;
 	
 	for(int i = 0; i < contador; i++){
-		printf("%d - %s", i, cliente[i].nome);
+		printf("%d - %s\n", cliente[i].id, cliente[i].nome);
 	}
 	
-	printf("Informe o código do cliente: ");
-	scanf("%d", &codCliente);
+	fflush(stdin);
+	printf("Deseja obter mais detalhes? (s/n): ");
+	scanf("%c", &opcao);
+	
+	system("cls");
+	
+	if(toupper(opcao) == 'S') {
+		for(int i = 0; i < contador; i++){
+		printf("%d - %s\n", cliente[i].id, cliente[i].nome);
+		}
+		
+		printf("\nInforme o código do cliente: ");
+		scanf("%d", &codCliente);
+		
+		system("cls");
+		
+		printf("%s\n",cliente[codCliente].nome);
+		printf("CPF: %d", cliente[codCliente].CPF);
+		printf("\nTelefone: %d\n", cliente[codCliente].telefone);
+		
+				
+	}
 }
 
 
